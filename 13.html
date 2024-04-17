@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算器</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .calculator {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            max-width: 300px;
+        }
+        .calculator input {
+            grid-column: span 4;
+            padding: 10px;
+            font-size: 18px;
+        }
+        .calculator button {
+            padding: 10px;
+            font-size: 18px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .calculator button:hover {
+            background-color: #e0e0e0;
+        }
+        .calculator.red {
+            background-color: #ffcccc;
+        }
+        .calculator.green {
+            background-color: #ccffcc;
+        }
+        .calculator.blue {
+            background-color: #ccccff;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" readonly>
+        <button onclick="addToInput('7')">7</button>
+        <button onclick="addToInput('8')">8</button>
+        <button onclick="addToInput('9')">9</button>
+        <button onclick="addToInput('/')">/</button>
+        <button onclick="addToInput('4')">4</button>
+        <button onclick="addToInput('5')">5</button>
+        <button onclick="addToInput('6')">6</button>
+        <button onclick="addToInput('*')">*</button>
+        <button onclick="addToInput('1')">1</button>
+        <button onclick="addToInput('2')">2</button>
+        <button onclick="addToInput('3')">3</button>
+        <button onclick="addToInput('-')">-</button>
+        <button onclick="addToInput('0')">0</button>
+        <button onclick="addToInput('.')">.</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="addToInput('+')">+</button>
+        <button onclick="addToInput('(')">(</button>
+        <button onclick="addToInput(')')">)</button>
+        <button onclick="clearInput()">C</button>
+        <button onclick="backspace()">退格</button>
+        <input type="text" id="customColor" placeholder="常用颜色单词或16进制颜色代码">
+        <button onclick="setCustomColor()">确定</button>
+    </div>
+    <script>
+        const input = document.querySelector('.calculator input');
+        const customColorInput = document.getElementById('customColor');
+        function addToInput(value) {
+            input.value += value;
+        }
+        function clearInput() {
+            input.value = '';
+        }
+        function calculate() {
+            try {
+                input.value = eval(input.value);
+            } catch (error) {
+                input.value = '错误';
+            }
+        }
+        function backspace() {
+            input.value = input.value.slice(0, -1);
+        }
+        function changeColor(color) {
+            document.querySelector('.calculator').className = 'calculator ' + color;
+        }
+        function setCustomColor() {
+            const color = customColorInput.value;
+            if (color) {
+                document.querySelector('.calculator').style.backgroundColor = color;
+                customColorInput.value = '';
+            }
+        }
+    </script>
+</body>
+</html>
